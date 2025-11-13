@@ -2,78 +2,539 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Iron Trail Welding</title>
+  <title>Iron Trail Welding | Mobile Welding & Fabrication | Gatesville, TX</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+        content="Iron Trail Welding offers mobile welding and fabrication services in Gatesville, TX and surrounding areas. MIG, TIG, stick, repairs and custom fabrication." />
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #111;
-      color: #f5f5f5;
+    * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #333 0, #050505 55%);
+      color: #f5f5f5;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
     header {
-      padding: 20px;
-      text-align: center;
-      background: #202020;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(5, 5, 5, 0.95);
+      border-bottom: 1px solid #333;
+      backdrop-filter: blur(6px);
     }
-    header h1 {
-      margin: 0;
-      letter-spacing: 2px;
+
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.6rem 1.25rem;
     }
+
+    .nav-logo {
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+      font-size: 0.9rem;
+    }
+
+    nav a {
+      position: relative;
+      padding-bottom: 0.1rem;
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 2px;
+      background: #f5b45b;
+      transition: width 0.2s ease-out;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.7rem 1.4rem;
+      border-radius: 999px;
+      border: 1px solid #f5b45b;
+      background: linear-gradient(135deg, #f5b45b, #c87b29);
+      color: #111;
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+      cursor: pointer;
+      transition: transform 0.12s ease-out, box-shadow 0.12s ease-out,
+        filter 0.12s ease-out;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.05);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: #f5f5f5;
+      border-color: #888;
+    }
+
     main {
-      max-width: 900px;
-      margin: 30px auto;
-      padding: 0 15px 40px;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1.5rem 1.25rem 3rem;
     }
-    .section {
-      margin-bottom: 30px;
+
+    /* HERO */
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: 2rem;
+      align-items: center;
+      padding: 2.3rem 0 2.8rem;
     }
+
+    .hero-logo-wrap {
+      background: radial-gradient(circle at center, #29221c 0, #050505 65%);
+      border-radius: 1.4rem;
+      padding: 1.5rem;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9);
+      border: 1px solid rgba(245, 180, 91, 0.15);
+    }
+
+    .hero-text h1 {
+      font-size: clamp(2.2rem, 3vw + 1.6rem, 3rem);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+    }
+
+    .hero-text h1 span {
+      display: block;
+      font-size: 0.6em;
+      letter-spacing: 0.25em;
+      color: #f5b45b;
+    }
+
+    .hero-tagline {
+      color: #ddd;
+      margin-bottom: 0.9rem;
+      font-size: 1rem;
+    }
+
+    .hero-meta {
+      font-size: 0.9rem;
+      color: #aaa;
+      margin-bottom: 1.4rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #999;
+    }
+
+    .badge {
+      border-radius: 999px;
+      border: 1px solid #333;
+      padding: 0.3rem 0.8rem;
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    section {
+      margin-bottom: 2.7rem;
+    }
+
     h2 {
-      border-bottom: 1px solid #444;
-      padding-bottom: 5px;
+      font-size: 1.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      margin-bottom: 0.3rem;
     }
-    .contact-box {
+
+    .section-subtitle {
+      font-size: 0.9rem;
+      color: #aaa;
+      margin-bottom: 1.2rem;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 1.4rem;
+    }
+
+    .card {
+      background: rgba(17, 17, 17, 0.95);
+      border-radius: 1rem;
+      padding: 1.2rem 1.1rem 1.3rem;
+      border: 1px solid #252525;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.7);
+    }
+
+    .card h3 {
+      font-size: 1.05rem;
+      margin-bottom: 0.4rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .card p {
+      font-size: 0.9rem;
+      color: #ccc;
+    }
+
+    ul {
+      padding-left: 1.1rem;
+    }
+
+    li {
+      margin-bottom: 0.3rem;
+      font-size: 0.92rem;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.4rem;
+    }
+
+    .pill {
+      font-size: 0.8rem;
+      border-radius: 999px;
       border: 1px solid #555;
-      padding: 15px;
-      border-radius: 6px;
-      background: #181818;
+      padding: 0.25rem 0.75rem;
+      color: #ddd;
+    }
+
+    .contact-section {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: 1.5rem;
+      align-items: flex-start;
+    }
+
+    .contact-box {
+      background: rgba(10, 10, 10, 0.95);
+      border-radius: 1rem;
+      padding: 1.2rem 1.1rem 1.3rem;
+      border: 1px solid #333;
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.8);
+      font-size: 0.95rem;
+    }
+
+    .contact-box p {
+      margin-bottom: 0.4rem;
+    }
+
+    .contact-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: #888;
+      margin-top: 0.6rem;
+    }
+
+    .muted {
+      color: #aaa;
+      font-size: 0.9rem;
+    }
+
+    .hours-list {
+      list-style: none;
+      margin-top: 0.4rem;
+    }
+
+    .hours-list li {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.9rem;
+    }
+
+    footer {
+      border-top: 1px solid #252525;
+      padding: 1.2rem 1.25rem 1.8rem;
+      font-size: 0.8rem;
+      color: #888;
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 0.6rem;
+    }
+
+    @media (max-width: 800px) {
+      .hero,
+      .contact-section {
+        grid-template-columns: 1fr;
+      }
+      .hero {
+        padding-top: 1.5rem;
+      }
+      .hero-text {
+        order: -1;
+      }
+      nav ul {
+        display: none; /* keep nav simple on mobile */
+      }
+      main {
+        padding-top: 1.25rem;
+      }
     }
   </style>
 </head>
 <body>
+  <!-- NAVBAR -->
   <header>
-    <h1>Iron Trail Welding</h1>
-    <p>Mobile Welding & Fabrication • Gatesville, TX</p>
+    <div class="nav-inner">
+      <div class="nav-logo">IRON TRAIL WELDING</div>
+      <nav>
+        <ul>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
   </header>
 
   <main>
-    <section class="section">
-      <h2>About Us</h2>
-      <p>
-        Iron Trail Welding provides mobile welding and fabrication services
-        in Gatesville and the surrounding areas. We specialize in repairs,
-        custom fabrication, and on-site welding for residential, commercial,
-        and farm/ranch projects.
-      </p>
+    <!-- HERO -->
+    <section class="hero" id="top">
+      <div class="hero-logo-wrap">
+        <!-- Make sure this filename matches what you uploaded -->
+        <img src="logo.png" alt="Iron Trail Welding logo" />
+      </div>
+
+      <div class="hero-text">
+        <h1>
+          IRON TRAIL WELDING
+          <span>MOBILE WELDING &amp; FABRICATION</span>
+        </h1>
+        <p class="hero-tagline">
+          On-site repairs and custom metalwork for ranch, residential, and
+          light commercial projects in and around Gatesville, Texas.
+        </p>
+        <p class="hero-meta">
+          Fully mobile rig • MIG · TIG · Stick • Carbon steel, stainless, and
+          more.
+        </p>
+
+        <div class="hero-actions">
+          <!-- TODO: put your real phone number + email -->
+          <a class="btn" href="tel:5551234567">Call for Service</a>
+          <a class="btn btn-outline"
+             href="mailto:info@irontrailwelding.com?subject=Quote Request">
+            Request a Quote
+          </a>
+        </div>
+
+        <div class="hero-badges">
+          <span class="badge">Veteran friendly</span>
+          <span class="badge">Mobile service</span>
+          <span class="badge">Gatesville · Surrounding area</span>
+        </div>
+      </div>
     </section>
 
-    <section class="section">
+    <!-- SERVICES -->
+    <section id="services">
       <h2>Services</h2>
-      <ul>
-        <li>Mobile MIG, TIG, and stick welding</li>
-        <li>Trailer, fence, and equipment repair</li>
-        <li>Custom brackets, handrails, and fabrication</li>
-        <li>Small structural and shop projects</li>
-      </ul>
+      <p class="section-subtitle">
+        If it’s metal and it’s cracked, bent, or needs built from scratch –
+        we’ll come to you and get it done right.
+      </p>
+
+      <div class="card-grid">
+        <article class="card">
+          <h3>Repair Welding</h3>
+          <p>
+            Mobile repair for gates, trailers, implements, handrails, frames,
+            and more. We focus on strong, clean welds that last – not quick
+            patches.
+          </p>
+          <div class="pill-row">
+            <span class="pill">Equipment &amp; trailers</span>
+            <span class="pill">Fences &amp; gates</span>
+            <span class="pill">Structural repair</span>
+          </div>
+        </article>
+
+        <article class="card">
+          <h3>Custom Fabrication</h3>
+          <p>
+            From brackets and mounts to small structures and shop projects, we
+            can design and build custom pieces to fit your exact needs.
+          </p>
+          <div class="pill-row">
+            <span class="pill">Brackets &amp; mounts</span>
+            <span class="pill">Racks &amp; bumpers</span>
+            <span class="pill">Shop projects</span>
+          </div>
+        </article>
+
+        <article class="card">
+          <h3>Field &amp; Ranch Work</h3>
+          <p>
+            Heavy-duty welding for ranch and farm operations – pens, panels,
+            pipe fence, loader buckets, and general maintenance welding.
+          </p>
+          <div class="pill-row">
+            <span class="pill">Farm &amp; ranch</span>
+            <span class="pill">Pipe &amp; panel</span>
+            <span class="pill">Bucket &amp; blade repair</span>
+          </div>
+        </article>
+      </div>
     </section>
 
-    <section class="section contact-box">
+    <!-- ABOUT -->
+    <section id="about">
+      <h2>About Iron Trail Welding</h2>
+      <p class="section-subtitle">
+        Small crew. Solid work. We show up when we say we will and stand
+        behind every weld.
+      </p>
+
+      <div class="card-grid">
+        <article class="card">
+          <h3>Mobile &amp; Ready</h3>
+          <p>
+            Our rig is set up to meet you where the work is – job sites, ranch
+            property, driveways, or shop yards. You don’t have to move broken
+            equipment across town just to get it fixed.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Quality Over Shortcuts</h3>
+          <p>
+            We take pride in clean beads, proper prep, and the right process
+            for the job. Our goal is to leave you with work that not only
+            looks good but holds up under real-world use.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Locally Owned</h3>
+          <p>
+            Iron Trail Welding is a local Gatesville outfit. When you call us,
+            you’re dealing directly with the welders doing the work – not a big
+            company or a call center.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
       <h2>Contact</h2>
-      <p><strong>Phone:</strong> XXX-XXX-XXXX</p>
-      <p><strong>Email:</strong> yourname@yourdomain.com</p>
-      <p><strong>Service Area:</strong> Gatesville, TX and surrounding areas</p>
+      <p class="section-subtitle">
+        Tell us what you’re working on and we’ll let you know how we can help.
+      </p>
+
+      <div class="contact-section">
+        <div class="contact-box">
+          <div class="contact-label">Call or Text</div>
+          <p><strong>Phone:</strong> <a href="tel:5551234567">555-123-4567</a></p>
+
+          <div class="contact-label">Email</div>
+          <p>
+            <a href="mailto:info@irontrailwelding.com?subject=Iron Trail Welding Inquiry">
+              info@irontrailwelding.com
+            </a>
+          </p>
+
+          <div class="contact-label">Service Area</div>
+          <p>Gatesville, TX and surrounding communities.</p>
+
+          <div class="contact-label">Typical Hours</div>
+          <ul class="hours-list">
+            <li><span>Mon – Fri</span><span>7:30am – 6:00pm</span></li>
+            <li><span>Sat</span><span>By appointment</span></li>
+            <li><span>Sun</span><span>Emergency calls only</span></li>
+          </ul>
+
+          <p class="muted" style="margin-top: 0.8rem;">
+            After-hours or emergency work may be available depending on
+            schedule – leave a voicemail or text and we’ll get back to you.
+          </p>
+        </div>
+
+        <div class="contact-box">
+          <div class="contact-label">Quick Quote Info</div>
+          <p>
+            When you reach out, it helps if you can share:
+          </p>
+          <ul>
+            <li>A short description of what needs to be welded or built</li>
+            <li>Photos of the damage or project area</li>
+            <li>Your location (or nearest town)</li>
+            <li>Any timeline or deadline you’re working with</li>
+          </ul>
+          <p class="muted" style="margin-top: 0.6rem;">
+            Send photos by text or email and we can usually give a rough
+            estimate before rolling the rig out.
+          </p>
+        </div>
+      </div>
     </section>
   </main>
+
+  <footer>
+    <span>© <span id="year"></span> Iron Trail Welding. All rights reserved.</span>
+    <span>Mobile Welding &amp; Fabrication • Gatesville, Texas</span>
+  </footer>
+
+  <script>
+    // keep copyright year current
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
