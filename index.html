@@ -334,25 +334,31 @@
         order: -1;
       }
 
-      .menu-toggle {
-        display: block;
+      /* Stack header content vertically */
+      .nav-inner {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0.6rem 1.25rem;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.4rem;
       }
 
-      .nav-inner {
-        position: relative;
+      .menu-toggle {
+        display: block;
+        align-self: flex-end;
+      }
+
+      nav {
+        width: 100%;
       }
 
       nav ul {
-        position: absolute;
-        top: 100%;
-        right: 1.25rem;
-        background: rgba(5, 5, 5, 0.98);
         flex-direction: column;
-        padding: 0.75rem 1rem;
         gap: 0.75rem;
-        border-bottom-left-radius: 0.75rem;
-        border-left: 1px solid #333;
-        border-bottom: 1px solid #333;
+        padding: 0.5rem 0 0.75rem;
+        border-top: 1px solid #333;
         display: none;
       }
 
@@ -370,7 +376,7 @@
   <!-- NAVBAR -->
   <header>
     <div class="nav-inner">
-      <div class="nav-logo">IRON TRAIL WELDING</div>
+      <a class="nav-logo" href="index.html">IRON TRAIL WELDING</a>
 
       <button class="menu-toggle" aria-label="Toggle navigation">☰</button>
 
@@ -391,7 +397,7 @@
     <section class="hero" id="top">
       <div class="hero-logo-wrap">
         <!-- LOGO -->
-        <img src="logo.PNG.png" alt="Iron Trail Welding logo" />
+        <img src="logo.PNG" alt="Iron Trail Welding logo" />
       </div>
 
       <div class="hero-text">
