@@ -125,6 +125,7 @@
       padding: 1rem 1.25rem;
       border-left: 4px solid #ffb400;
       box-shadow: 0 0 24px rgba(0, 0, 0, 0.6);
+      position: relative;
     }
 
     .review-header {
@@ -168,6 +169,31 @@
       text-align: center;
     }
 
+    /* Delete button (admin only) */
+    .admin-delete {
+      display: none;
+      position: absolute;
+      top: 0.6rem;
+      right: 0.8rem;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.25rem 0.5rem;
+      border-radius: 999px;
+      border: 1px solid #ff5555;
+      background: transparent;
+      color: #ff8888;
+      cursor: pointer;
+    }
+
+    body.admin-active .admin-delete {
+      display: inline-block;
+    }
+
+    .admin-delete:hover {
+      background: rgba(255, 85, 85, 0.12);
+    }
+
     /* Form */
     .form-card {
       background: rgba(8, 8, 8, 0.95);
@@ -198,6 +224,7 @@
     }
 
     input[type="text"],
+    input[type="password"],
     textarea,
     select {
       width: 100%;
@@ -217,7 +244,8 @@
       max-height: 200px;
     }
 
-    button[type="submit"] {
+    button[type="submit"],
+    .btn {
       width: 100%;
       padding: 0.7rem 1rem;
       border-radius: 999px;
@@ -230,6 +258,62 @@
       background: linear-gradient(120deg, #ffb400, #ff7a00);
       color: #000;
       margin-top: 0.25rem;
+    }
+
+    .btn-secondary {
+      background: #222;
+      color: #eee;
+      border: 1px solid #444;
+      width: auto;
+      padding-inline: 1rem;
+    }
+
+    .form-status {
+      font-size: 0.8rem;
+      margin-top: 0.4rem;
+      min-height: 1em;
+    }
+
+    .status-ok {
+      color: #6edc7b;
+    }
+
+    .status-error {
+      color: #ff7a7a;
+    }
+
+    /* Admin controls */
+    .admin-controls {
+      max-width: 1100px;
+      margin: 0 auto 2rem;
+      padding: 0 1rem;
+      font-size: 0.8rem;
+      color: #bbbbbb;
+    }
+
+    .admin-controls-inner {
+      background: rgba(8, 8, 8, 0.95);
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      border: 1px dashed #444;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .admin-controls label {
+      margin-bottom: 0;
+    }
+
+    .admin-controls input[type="password"] {
+      max-width: 200px;
+      margin-bottom: 0;
+    }
+
+    .admin-status-text {
+      margin-left: auto;
+      font-style: italic;
     }
 
     footer {
@@ -269,6 +353,7 @@
       </p>
 
       <div class="grid">
+        <!-- Reviews -->
         <section aria-label="Customer reviews">
           <div id="reviews-list">
             <div class="empty-state" id="empty-state">
@@ -277,16 +362,17 @@
           </div>
         </section>
 
+        <!-- Form -->
         <aside>
           <div class="form-card">
             <h2>Leave a Review</h2>
             <p class="small">Tell us how we did.</p>
 
             <form id="review-form">
-              <label>Your Name (optional)</label>
+              <label for="name">Your Name (optional)</label>
               <input type="text" id="name" placeholder="John S.">
 
-              <label>Rating</label>
+              <label for="rating">Rating</label>
               <select id="rating">
                 <option value="5" selected>★★★★★ – 5 / 5</option>
                 <option value="4">★★★★☆ – 4 / 5</option>
@@ -295,7 +381,7 @@
                 <option value="1">★☆☆☆☆ – 1 / 5</option>
               </select>
 
-              <label>Your Review</label>
+              <label for="review">Your Review</label>
               <textarea id="review" required></textarea>
 
               <button type="submit">Submit Review</button>
@@ -303,6 +389,16 @@
             </form>
           </div>
         </aside>
+      </div>
+    </div>
+
+    <!-- Admin controls (password-based) -->
+    <div class="admin-controls">
+      <div class="admin-controls-inner">
+        <label for="admin-password">Admin password (for deleting reviews):</label>
+        <input type="password" id="admin-password" placeholder="••••••••">
+        <button type="button" class="btn btn-secondary" id="admin-login-btn">Enter admin mode</button>
+        <span class="admin-status-text" id="admin-status-text">Admin mode: off</span>
       </div>
     </div>
   </main>
@@ -317,6 +413,9 @@
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    /* --- CHANGE THIS PASSWORD TO WHATEVER YOU WANT --- */
+    const ADMIN_PASSWORD = "D1ll0n1995!"; // <-- change this
 
     /* --- YOUR FIREBASE CONFIG --- */
     const firebaseConfig = {
@@ -336,12 +435,19 @@
     const reviewsList = document.getElementById("reviews-list");
     const emptyState = document.getElementById("empty-state");
     const form = document.getElementById("review-form");
-    const status = document.getElementById("form-status");
+    const statusEl = document.getElementById("form-status");
+
+    const adminPasswordInput = document.getElementById("admin-password");
+    const adminLoginBtn = document.getElementById("admin-login-btn");
+    const adminStatusText = document.getElementById("admin-status-text");
+
+    let adminActive = false;
 
     function stars(r) {
       return "★".repeat(r) + "☆".repeat(5 - r);
     }
 
+    // Listen for reviews
     reviewsRef.orderBy("createdAt", "desc").onSnapshot(snapshot => {
       reviewsList.innerHTML = "";
       if (snapshot.empty) {
@@ -350,40 +456,119 @@
         return;
       }
       emptyState.style.display = "none";
+
       snapshot.forEach(doc => {
         const r = doc.data();
-        const card = document.createElement("div");
-        card.classList.add("review-card");
-        card.innerHTML = `
-          <div class="review-header">
-            <div class="review-name">${r.name || "Anonymous"}</div>
-            <div class="stars">${stars(r.rating)}</div>
-            <div class="review-meta">${r.createdAt ? r.createdAt.toDate().toLocaleDateString() : ""}</div>
-          </div>
-          <p class="review-text">${r.text}</p>
-        `;
+        const card = document.createElement("article");
+        card.className = "review-card";
+
+        const header = document.createElement("div");
+        header.className = "review-header";
+
+        const nameEl = document.createElement("div");
+        nameEl.className = "review-name";
+        nameEl.textContent = r.name || "Anonymous";
+
+        const starsEl = document.createElement("div");
+        starsEl.className = "stars";
+        starsEl.textContent = stars(r.rating || 5);
+
+        const metaEl = document.createElement("div");
+        metaEl.className = "review-meta";
+        metaEl.textContent = r.createdAt ? r.createdAt.toDate().toLocaleDateString() : "";
+
+        header.appendChild(nameEl);
+        header.appendChild(starsEl);
+        header.appendChild(metaEl);
+
+        const textEl = document.createElement("p");
+        textEl.className = "review-text";
+        textEl.textContent = r.text;
+
+        // Delete button (only visible in admin mode via CSS)
+        const delBtn = document.createElement("button");
+        delBtn.className = "admin-delete";
+        delBtn.type = "button";
+        delBtn.textContent = "Delete";
+
+        delBtn.addEventListener("click", async () => {
+          const sure = confirm("Delete this review? This cannot be undone.");
+          if (!sure) return;
+          try {
+            await reviewsRef.doc(doc.id).delete();
+          } catch (err) {
+            alert("Error deleting review. Check console.");
+            console.error(err);
+          }
+        });
+
+        card.appendChild(header);
+        card.appendChild(textEl);
+        card.appendChild(delBtn);
+
         reviewsList.appendChild(card);
       });
+    }, err => {
+      console.error(err);
+      reviewsList.innerHTML = "";
+      const errorDiv = document.createElement("div");
+      errorDiv.className = "empty-state";
+      errorDiv.textContent = "Could not load reviews right now.";
+      reviewsList.appendChild(errorDiv);
     });
 
+    // Handle review form submit
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
-      status.textContent = "Submitting...";
+      statusEl.textContent = "";
+      statusEl.className = "form-status";
+
       const name = document.getElementById("name").value.trim() || "Anonymous";
-      const rating = parseInt(document.getElementById("rating").value);
+      const rating = parseInt(document.getElementById("rating").value, 10) || 5;
       const text = document.getElementById("review").value.trim();
+
       if (text.length < 5) {
-        status.textContent = "Review is too short.";
+        statusEl.textContent = "Review is too short.";
+        statusEl.classList.add("status-error");
         return;
       }
-      await reviewsRef.add({
-        name,
-        rating,
-        text,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp()
-      });
-      form.reset();
-      status.textContent = "Review submitted!";
+
+      statusEl.textContent = "Submitting...";
+      try {
+        await reviewsRef.add({
+          name,
+          rating,
+          text,
+          createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+        form.reset();
+        document.getElementById("rating").value = "5";
+        statusEl.textContent = "Review submitted!";
+        statusEl.classList.add("status-ok");
+      } catch (err) {
+        console.error(err);
+        statusEl.textContent = "Error submitting review.";
+        statusEl.classList.add("status-error");
+      }
+    });
+
+    // Admin login
+    adminLoginBtn.addEventListener("click", () => {
+      const val = adminPasswordInput.value;
+      if (!val) return;
+
+      if (val === ADMIN_PASSWORD) {
+        adminActive = true;
+        document.body.classList.add("admin-active");
+        adminStatusText.textContent = "Admin mode: ON (delete buttons visible)";
+        adminStatusText.style.color = "#6edc7b";
+        adminPasswordInput.value = "";
+      } else {
+        adminActive = false;
+        document.body.classList.remove("admin-active");
+        adminStatusText.textContent = "Admin mode: incorrect password";
+        adminStatusText.style.color = "#ff7a7a";
+      }
     });
   </script>
 
