@@ -21,12 +21,8 @@
 
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-
-      /* FIXED WELDING SHOP BACKGROUND */
-      background:
-        radial-gradient(circle at top, rgba(10,10,10,0.35) 0, rgba(0,0,0,0.75) 65%),
-        url("welding-shop-bg.jpg.png") center / cover fixed no-repeat;
-
+      /* SIMPLE: just the welding shop background */
+      background: #000 url("welding-shop-bg.png?v=1") center / cover fixed no-repeat;
       color: #f5f5f5;
       line-height: 1.6;
     }
@@ -46,7 +42,7 @@
       position: sticky;
       top: 0;
       z-index: 50;
-      background: rgba(5, 5, 5, 0.85);
+      background: rgba(5, 5, 5, 0.9);
       border-bottom: 1px solid #333;
       backdrop-filter: blur(6px);
     }
@@ -66,8 +62,6 @@
       font-size: 0.9rem;
       text-transform: uppercase;
       font-family: "Oswald", system-ui, sans-serif;
-
-      /* heat tint */
       background: linear-gradient(120deg, #f5b45b, #ff7a00);
       -webkit-background-clip: text;
       background-clip: text;
@@ -97,6 +91,7 @@
       background: #f5b45b;
       transition: width 0.2s ease-out;
     }
+
     nav a:hover::after {
       width: 100%;
     }
@@ -125,6 +120,20 @@
       letter-spacing: 0.08em;
       box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
       cursor: pointer;
+      transition: transform 0.12s ease-out, box-shadow 0.12s ease-out,
+        filter 0.12s ease-out;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.05);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: #f5f5f5;
+      border-color: #888;
     }
 
     main {
@@ -143,7 +152,7 @@
     }
 
     .hero-logo-wrap {
-      background: rgba(12,12,12,0.55);
+      background: rgba(12,12,12,0.75);
       border-radius: 1.4rem;
       padding: 1.5rem;
       box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9);
@@ -166,9 +175,45 @@
       color: #f5b45b;
     }
 
-    /* Services, Contact, etc. remain unchanged */
+    .hero-tagline {
+      color: #ddd;
+      margin-bottom: 0.9rem;
+      font-size: 1rem;
+    }
 
-    section { margin-bottom: 2.7rem; }
+    .hero-meta {
+      font-size: 0.9rem;
+      color: #aaa;
+      margin-bottom: 1.4rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #999;
+    }
+
+    .badge {
+      border-radius: 999px;
+      border: 1px solid #333;
+      padding: 0.3rem 0.8rem;
+      background: rgba(0,0,0,0.4);
+    }
+
+    section {
+      margin-bottom: 2.7rem;
+    }
 
     h2 {
       font-family: "Oswald", system-ui, sans-serif;
@@ -191,19 +236,91 @@
     }
 
     .card {
-      background: rgba(10,10,10,0.72);
+      background: rgba(12, 12, 12, 0.85);
       border-radius: 1rem;
-      padding: 1.2rem;
+      padding: 1.2rem 1.1rem 1.3rem;
       border: 1px solid #252525;
       box-shadow: 0 12px 35px rgba(0, 0, 0, 0.7);
     }
 
-    .pill-row { display: flex; gap: .5rem; flex-wrap: wrap; }
+    .card h3 {
+      font-size: 1.05rem;
+      margin-bottom: 0.4rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .card p {
+      font-size: 0.9rem;
+      color: #ccc;
+    }
+
+    ul {
+      padding-left: 1.1rem;
+    }
+
+    li {
+      margin-bottom: 0.3rem;
+      font-size: 0.92rem;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.4rem;
+    }
+
+    .pill {
+      font-size: 0.8rem;
+      border-radius: 999px;
+      border: 1px solid #555;
+      padding: 0.25rem 0.75rem;
+      color: #ddd;
+    }
 
     .contact-section {
       display: grid;
       grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
       gap: 1.5rem;
+      align-items: flex-start;
+    }
+
+    .contact-box {
+      background: rgba(10, 10, 10, 0.9);
+      border-radius: 1rem;
+      padding: 1.2rem 1.1rem 1.3rem;
+      border: 1px solid #333;
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.8);
+      font-size: 0.95rem;
+    }
+
+    .contact-box p {
+      margin-bottom: 0.4rem;
+    }
+
+    .contact-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: #888;
+      margin-top: 0.6rem;
+    }
+
+    .muted {
+      color: #aaa;
+      font-size: 0.9rem;
+    }
+
+    .hours-list {
+      list-style: none;
+      margin-top: 0.4rem;
+    }
+
+    .hours-list li {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.9rem;
     }
 
     footer {
@@ -214,7 +331,9 @@
       max-width: 1100px;
       margin: 0 auto;
       display: flex;
+      flex-wrap: wrap;
       justify-content: space-between;
+      gap: 0.6rem;
     }
 
     @media (max-width: 800px) {
@@ -223,35 +342,58 @@
         grid-template-columns: 1fr;
       }
 
-      .hero-text { order: -1; }
+      .hero {
+        padding-top: 1.5rem;
+      }
+
+      .hero-text {
+        order: -1;
+      }
 
       .nav-inner {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0.6rem 1.25rem;
+        display: flex;
         flex-direction: column;
         align-items: stretch;
         gap: 0.4rem;
       }
 
-      .menu-toggle { display: block; }
+      .menu-toggle {
+        display: block;
+        align-self: flex-end;
+      }
+
+      nav {
+        width: 100%;
+      }
 
       nav ul {
         flex-direction: column;
         gap: 0.75rem;
+        padding: 0.5rem 0 0.75rem;
         border-top: 1px solid #333;
         display: none;
-        padding-top: 0.5rem;
       }
 
-      nav.open ul { display: flex; }
+      nav.open ul {
+        display: flex;
+      }
+
+      main {
+        padding-top: 1.25rem;
+      }
     }
   </style>
 </head>
-
 <body>
   <!-- NAVBAR -->
   <header>
     <div class="nav-inner">
       <a class="nav-logo" href="index.html">IRON TRAIL WELDING</a>
-      <button class="menu-toggle">☰</button>
+
+      <button class="menu-toggle" aria-label="Toggle navigation">☰</button>
 
       <nav>
         <ul>
@@ -267,27 +409,38 @@
   </header>
 
   <main>
-
     <!-- HERO -->
     <section class="hero" id="top">
       <div class="hero-logo-wrap">
-        <img src="logo.PNG.png" alt="Iron Trail Welding logo">
+        <!-- LOGO -->
+        <img src="logo.PNG.png" alt="Iron Trail Welding logo" />
       </div>
 
       <div class="hero-text">
         <h1>
           IRON TRAIL WELDING
-          <span>MOBILE WELDING & FABRICATION</span>
+          <span>MOBILE WELDING &amp; FABRICATION</span>
         </h1>
-
         <p class="hero-tagline">
           On-site repairs and custom metalwork for ranch, residential, and
           light commercial projects in and around Gatesville, Texas.
         </p>
+        <p class="hero-meta">
+          Fully mobile rig • MIG · TIG · Stick • Carbon steel, stainless, and more.
+        </p>
 
         <div class="hero-actions">
           <a class="btn" href="tel:12549970146">Call or Text</a>
-          <a class="btn btn-outline" href="mailto:contact@irontrailwelding.com?subject=Quote Request">Request a Quote</a>
+          <a class="btn btn-outline"
+             href="mailto:contact@irontrailwelding.com?subject=Quote Request">
+            Request a Quote
+          </a>
+        </div>
+
+        <div class="hero-badges">
+          <span class="badge">Veteran friendly</span>
+          <span class="badge">Mobile service</span>
+          <span class="badge">Gatesville · Surrounding area</span>
         </div>
       </div>
     </section>
@@ -295,22 +448,49 @@
     <!-- SERVICES -->
     <section id="services">
       <h2>Services</h2>
-      <p class="section-subtitle">If it’s metal — we fix it or build it.</p>
+      <p class="section-subtitle">
+        If it’s metal and it’s cracked, bent, or needs built from scratch –
+        we’ll come to you and get it done right.
+      </p>
 
       <div class="card-grid">
         <article class="card">
           <h3>Repair Welding</h3>
-          <p>Gates, trailers, implements, frames, and more.</p>
+          <p>
+            Mobile repair for gates, trailers, implements, handrails, frames,
+            and more. We focus on strong, clean welds that last – not quick patches.
+          </p>
+          <div class="pill-row">
+            <span class="pill">Equipment &amp; trailers</span>
+            <span class="pill">Fences &amp; gates</span>
+            <span class="pill">Structural repair</span>
+          </div>
         </article>
 
         <article class="card">
           <h3>Custom Fabrication</h3>
-          <p>Brackets, mounts, racks, structural pieces, shop projects.</p>
+          <p>
+            From brackets and mounts to small structures and shop projects, we
+            can design and build custom pieces to fit your exact needs.
+          </p>
+          <div class="pill-row">
+            <span class="pill">Brackets &amp; mounts</span>
+            <span class="pill">Racks &amp; bumpers</span>
+            <span class="pill">Shop projects</span>
+          </div>
         </article>
 
         <article class="card">
-          <h3>Field & Ranch Work</h3>
-          <p>Panels, buckets, pipe fence, ranch repairs.</p>
+          <h3>Field &amp; Ranch Work</h3>
+          <p>
+            Heavy-duty welding for ranch and farm operations – pens, panels,
+            pipe fence, loader buckets, and general maintenance welding.
+          </p>
+          <div class="pill-row">
+            <span class="pill">Farm &amp; ranch</span>
+            <span class="pill">Pipe &amp; panel</span>
+            <span class="pill">Bucket &amp; blade repair</span>
+          </div>
         </article>
       </div>
     </section>
@@ -318,43 +498,12 @@
     <!-- CONTACT -->
     <section id="contact">
       <h2>Contact</h2>
+      <p class="section-subtitle">
+        Tell us what you’re working on and we’ll let you know how we can help.
+      </p>
 
       <div class="contact-section">
         <div class="contact-box">
           <div class="contact-label">Call or Text</div>
           <p><strong>Dylan Buete:</strong> <a href="tel:12549970146">(254) 997-0146</a></p>
-          <p><strong>Rondell Vinson:</strong> <a href="tel:12549970147">(254) 997-0147</a></p>
-
-          <div class="contact-label">Email</div>
-          <p><a href="mailto:contact@irontrailwelding.com">contact@irontrailwelding.com</a></p>
-
-        </div>
-
-        <div class="contact-box">
-          <div class="contact-label">Quick Quote Info</div>
-          <p>Send photos + a short description for a fast estimate.</p>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <footer>
-    <span>© <span id="year"></span> Iron Trail Welding.</span>
-    <span>Mobile Welding & Fabrication • Gatesville, Texas</span>
-  </footer>
-
-  <script>
-    // Year
-    document.getElementById("year").textContent = new Date().getFullYear();
-
-    // Mobile Menu
-    const menuBtn = document.querySelector(".menu-toggle");
-    const nav = document.querySelector("nav");
-
-    menuBtn.addEventListener("click", () => {
-      nav.classList.toggle("open");
-    });
-  </script>
-</body>
-</html>
+          <p><strong>Rondell Vinson:</strong> <a href="tel:
