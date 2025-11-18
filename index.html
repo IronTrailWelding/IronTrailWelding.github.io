@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Iron Trail Welding | Mobile Welding & Fabrication | Gatesville, TX</title>
+  <title>Iron Trail Welding | Mobile Welding & Fabricication | Gatesville, TX</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description"
         content="Iron Trail Welding offers mobile welding and fabrication services in Gatesville, TX and surrounding areas. MIG, TIG, stick, repairs and custom fabrication." />
@@ -22,7 +22,9 @@
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 
-      /* NEW: wide welding background for desktop + mobile */
+      /* HYBRID BACKGROUND
+         Desktop/tablet: cover (cinematic, fills screen)
+         Mobile: see @media override below (contain, no zoom) */
       background-color: #050505;
       background-image: url("index-bg-wide.png");
       background-repeat: no-repeat;
@@ -361,12 +363,14 @@
       gap: 0.6rem;
     }
 
-    /* MOBILE */
+    /* MOBILE – HYBRID BACKGROUND BEHAVIOR */
     @media (max-width: 800px) {
       body {
-        /* same background; just be explicit about centering */
-        background-position: center center;
-        background-size: cover;
+        /* Hybrid: on phones, show whole image (no zoom) */
+        background-size: contain;
+        background-position: center top;
+        background-repeat: no-repeat;
+        background-color: #050505;
       }
 
       .hero,
