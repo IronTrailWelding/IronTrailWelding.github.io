@@ -32,7 +32,8 @@
       text-decoration: none;
     }
 
-    header {
+    /* NAV HEADER – only this one has the black bar */
+    .site-header {
       position: sticky;
       top: 0;
       z-index: 50;
@@ -219,7 +220,8 @@
   </style>
 </head>
 <body>
-  <header>
+  <!-- NAVBAR (sticky, dark) -->
+  <header class="site-header">
     <div class="nav-inner">
       <a class="nav-logo" href="index.html">IRON TRAIL WELDING</a>
 
@@ -238,8 +240,9 @@
     </div>
   </header>
 
+  <!-- MAIN CONTENT – this header no longer gets the black bar -->
   <main>
-    <header style="margin-bottom: 1.5rem;">
+    <header style="margin-bottom: 1.5rem; background: transparent;">
       <h1>About Iron Trail Welding</h1>
       <p class="section-subtitle">
         Small crew. Solid work. We show up when we say we will and stand behind every weld.
@@ -326,9 +329,9 @@
     // Set year
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    // Mobile menu toggle
+    // Mobile menu toggle – now targets the .site-header nav
     const menuToggle = document.querySelector('.menu-toggle');
-    const nav = document.querySelector('header nav');
+    const nav = document.querySelector('.site-header nav');
 
     if (menuToggle && nav) {
       menuToggle.addEventListener('click', () => {
