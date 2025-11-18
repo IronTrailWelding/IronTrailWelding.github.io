@@ -164,7 +164,17 @@
       border-radius: 1.4rem;
       padding: 1.5rem;
       box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9);
-      border: 1px solid rgba(245, 180, 91, 0.2);
+
+      /* Medium weld bead border */
+      border: 3px solid transparent;
+      border-image: linear-gradient(135deg,
+        #c8d0da 0%,
+        #9bb0c8 20%,
+        #6f7f99 40%,
+        #d6b37f 60%,
+        #b66e3d 80%,
+        #8aa3c2 100%
+      ) 1;
     }
 
     .hero-text h1 {
@@ -243,14 +253,21 @@
       gap: 1.4rem;
     }
 
-    /* SERVICE CARDS – with heat-tint gradient border */
+    /* SERVICE CARDS – weld bead border */
     .card {
       background: rgba(12, 12, 12, 0.85);
       border-radius: 1rem;
       padding: 1.2rem 1.1rem 1.3rem;
 
-      border: 2px solid;
-      border-image: linear-gradient(90deg, #ffb457, #ff7a00, #6ea2ff) 1;
+      border: 3px solid transparent;
+      border-image: linear-gradient(135deg,
+        #c8d0da 0%,
+        #9bb0c8 20%,
+        #6f7f99 40%,
+        #d6b37f 60%,
+        #b66e3d 80%,
+        #8aa3c2 100%
+      ) 1;
 
       box-shadow: 0 12px 35px rgba(0, 0, 0, 0.7);
     }
@@ -298,14 +315,21 @@
       align-items: flex-start;
     }
 
-    /* CONTACT BOXES – with same gradient border */
+    /* CONTACT BOXES – weld bead border */
     .contact-box {
       background: rgba(10, 10, 10, 0.9);
       border-radius: 1rem;
       padding: 1.2rem 1.1rem 1.3rem;
 
-      border: 2px solid;
-      border-image: linear-gradient(90deg, #ffb457, #ff7a00, #6ea2ff) 1;
+      border: 3px solid transparent;
+      border-image: linear-gradient(135deg,
+        #c8d0da 0%,
+        #9bb0c8 20%,
+        #6f7f99 40%,
+        #d6b37f 60%,
+        #b66e3d 80%,
+        #8aa3c2 100%
+      ) 1;
 
       box-shadow: 0 18px 45px rgba(0, 0, 0, 0.8);
       font-size: 0.95rem;
@@ -589,4 +613,3 @@
   </script>
 </body>
 </html>
-
