@@ -22,12 +22,11 @@
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 
-      /* Desktop / large screen background */
-      background-image: url("welding-shop-bg.jpg.png?v=3");
+      /* Welding shop background - NO fixed attachment */
+      background-image: url("welding-shop-bg.png?v=3");
       background-repeat: no-repeat;
       background-position: center top;
       background-size: cover;
-      background-attachment: fixed;
       background-color: #000;
 
       color: #f5f5f5;
@@ -343,12 +342,12 @@
       gap: 0.6rem;
     }
 
-    /* MOBILE OPTIMIZATION */
+    /* MOBILE */
     @media (max-width: 800px) {
       body {
-        background-size: contain;      /* show more of the image */
+        /* no fixed background on mobile either, just scrolls normally */
+        background-size: contain;
         background-position: center top;
-        background-attachment: scroll; /* fixes jitter and zoom issues on phones */
         background-color: #000;
       }
 
@@ -583,4 +582,3 @@
   </script>
 </body>
 </html>
-
