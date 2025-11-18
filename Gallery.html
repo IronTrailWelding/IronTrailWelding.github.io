@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Gallery | Iron Trail Welding | Gatesville, TX</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+        content="Photo gallery of Iron Trail Welding projects including repair work, custom fabrication, and ranch welding." />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #333 0, #050505 55%);
+      color: #f5f5f5;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 0.8rem;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(5, 5, 5, 0.95);
+      border-bottom: 1px solid #333;
+      backdrop-filter: blur(6px);
+    }
+
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.6rem 1.25rem;
+    }
+
+    .nav-logo {
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+      font-size: 0.9rem;
+    }
+
+    nav a {
+      position: relative;
+      padding-bottom: 0.1rem;
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 2px;
+      background: #f5b45b;
+      transition: width 0.2s ease-out;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1.8rem 1.25rem 3rem;
+    }
+
+    h1 {
+      font-size: 1.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      margin-bottom: 0.4rem;
+    }
+
+    .section-subtitle {
+      font-size: 0.9rem;
+      color: #aaa;
+      margin-bottom: 1.4rem;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 1.1rem;
+    }
+
+    .gallery-item {
+      background: rgba(17, 17, 17, 0.95);
+      border-radius: 1rem;
+      padding: 0.7rem;
+      border: 1px solid #252525;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.7);
+    }
+
+    .gallery-caption {
+      font-size: 0.85rem;
+      color: #ccc;
+      margin-top: 0.5rem;
+    }
+
+    footer {
+      border-top: 1px solid #252525;
+      padding: 1.2rem 1.25rem 1.8rem;
+      font-size: 0.8rem;
+      color: #888;
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 0.6rem;
+    }
+
+    @media (max-width: 800px) {
+      nav ul {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav-inner">
+      <div class="nav-logo">IRON TRAIL WELDING</div>
+      <nav>
+        <ul>
+          <li><a href="index.html#top">Home</a></li>
+          <li><a href="index.html#services">Services</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <header style="margin-bottom: 1.5rem;">
+      <h1>Gallery</h1>
+      <p class="section-subtitle">
+        A look at some of the repairs, field work, and custom projects we’ve completed.
+      </p>
+    </header>
+
+    <section class="gallery-grid">
+      <!-- Replace these image filenames and captions with your actual photos -->
+      <article class="gallery-item">
+        <img src="gallery1.jpg" alt="Repaired ranch gate hinge" />
+        <p class="gallery-caption">Heavy-duty hinge repair on a ranch gate.</p>
+      </article>
+
+      <article class="gallery-item">
+        <img src="gallery2.jpg" alt="Trailer frame repair" />
+        <p class="gallery-caption">Trailer frame reinforcement and crack repair.</p>
+      </article>
+
+      <article class="gallery-item">
+        <img src="gallery3.jpg" alt="Custom bracket fabrication" />
+        <p class="gallery-caption">Custom brackets built to spec for a shop project.</p>
+      </article>
+
+      <article class="gallery-item">
+        <img src="gallery4.jpg" alt="Bucket edge hardfacing" />
+        <p class="gallery-caption">Bucket repair and edge buildup for longer service life.</p>
+      </article>
+
+      <article class="gallery-item">
+        <img src="gallery5.jpg" alt="Pipe fence welding" />
+        <p class="gallery-caption">Pipe fence welding on ranch property outside Gatesville.</p>
+      </article>
+
+      <article class="gallery-item">
+        <img src="gallery6.jpg" alt="Custom rack build" />
+        <p class="gallery-caption">Custom rack fabrication for storage and hauling.</p>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    <span>© <span id="year"></span> Iron Trail Welding. All rights reserved.</span>
+    <span>Mobile Welding &amp; Fabrication • Gatesville, Texas</span>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
