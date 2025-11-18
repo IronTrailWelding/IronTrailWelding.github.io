@@ -32,7 +32,7 @@
       text-decoration: none;
     }
 
-    /* NAV HEADER – only this one has the black bar */
+    /* NAV HEADER */
     .site-header {
       position: sticky;
       top: 0;
@@ -137,11 +137,22 @@
       margin-top: 1rem;
     }
 
+    /* ABOUT CARDS – weld bead border to match index */
     .card {
       background: rgba(17, 17, 17, 0.95);
       border-radius: 1rem;
       padding: 1.2rem 1.1rem 1.3rem;
-      border: 1px solid #252525;
+
+      border: 3px solid transparent;
+      border-image: linear-gradient(135deg,
+        #c8d0da 0%,
+        #9bb0c8 20%,
+        #6f7f99 40%,
+        #d6b37f 60%,
+        #b66e3d 80%,
+        #8aa3c2 100%
+      ) 1;
+
       box-shadow: 0 12px 35px rgba(0, 0, 0, 0.7);
     }
 
@@ -240,7 +251,7 @@
     </div>
   </header>
 
-  <!-- MAIN CONTENT – this header no longer gets the black bar -->
+  <!-- MAIN CONTENT -->
   <main>
     <header style="margin-bottom: 1.5rem; background: transparent;">
       <h1>About Iron Trail Welding</h1>
@@ -329,7 +340,7 @@
     // Set year
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    // Mobile menu toggle – now targets the .site-header nav
+    // Mobile menu toggle – targets the .site-header nav
     const menuToggle = document.querySelector('.menu-toggle');
     const nav = document.querySelector('.site-header nav');
 
