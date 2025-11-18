@@ -5,7 +5,7 @@
   <title>Gallery | Iron Trail Welding | Gatesville, TX</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description"
-        content="Photo gallery of Iron Trail Welding projects including repair work, custom fabrication, and ranch welding." />
+        content="Project photos and welding work by Iron Trail Welding in Gatesville, Texas." />
   <style>
     * {
       box-sizing: border-box;
@@ -29,7 +29,6 @@
       max-width: 100%;
       height: auto;
       display: block;
-      border-radius: 0.8rem;
     }
 
     header {
@@ -102,9 +101,9 @@
     }
 
     h1 {
-      font-size: 1.9rem;
       text-transform: uppercase;
       letter-spacing: 0.16em;
+      font-size: 1.9rem;
       margin-bottom: 0.4rem;
     }
 
@@ -117,21 +116,27 @@
     .gallery-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 1.1rem;
+      gap: 1rem;
+      margin-top: 1rem;
     }
 
     .gallery-item {
       background: rgba(17, 17, 17, 0.95);
-      border-radius: 1rem;
-      padding: 0.7rem;
+      border-radius: 0.9rem;
+      overflow: hidden;
       border: 1px solid #252525;
       box-shadow: 0 12px 35px rgba(0, 0, 0, 0.7);
     }
 
+    .gallery-item img {
+      width: 100%;
+      display: block;
+    }
+
     .gallery-caption {
+      padding: 0.6rem 0.8rem 0.8rem;
       font-size: 0.85rem;
-      color: #ccc;
-      margin-top: 0.5rem;
+      color: #ddd;
     }
 
     footer {
@@ -194,6 +199,7 @@
           <li><a href="index.html#services">Services</a></li>
           <li><a href="about.html">About</a></li>
           <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="reviews.html">Reviews</a></li>
           <li><a href="index.html#contact">Contact</a></li>
         </ul>
       </nav>
@@ -202,43 +208,35 @@
 
   <main>
     <header style="margin-bottom: 1.5rem;">
-      <h1>Gallery</h1>
+      <h1>Project Gallery</h1>
       <p class="section-subtitle">
-        A look at some of the repairs, field work, and custom projects we’ve completed.
+        A look at some of the repairs and fabrication work we’ve done in and around Gatesville.
       </p>
     </header>
 
-    <section class="gallery-grid">
-      <!-- Replace these image filenames and captions with your actual photos -->
-      <article class="gallery-item">
-        <img src="gallery1.jpg" alt="Repaired ranch gate hinge" />
-        <p class="gallery-caption">Heavy-duty hinge repair on a ranch gate.</p>
-      </article>
+    <section>
+      <div class="gallery-grid">
+        <!-- Replace these src values with your actual image file names -->
+        <article class="gallery-item">
+          <img src="gallery1.jpg" alt="Trailer repair weld">
+          <div class="gallery-caption">Trailer frame repair and reinforcement.</div>
+        </article>
 
-      <article class="gallery-item">
-        <img src="gallery2.jpg" alt="Trailer frame repair" />
-        <p class="gallery-caption">Trailer frame reinforcement and crack repair.</p>
-      </article>
+        <article class="gallery-item">
+          <img src="gallery2.jpg" alt="Gate repair">
+          <div class="gallery-caption">Ranch gate hinge and latch rebuild.</div>
+        </article>
 
-      <article class="gallery-item">
-        <img src="gallery3.jpg" alt="Custom bracket fabrication" />
-        <p class="gallery-caption">Custom brackets built to spec for a shop project.</p>
-      </article>
+        <article class="gallery-item">
+          <img src="gallery3.jpg" alt="Custom bracket fabrication">
+          <div class="gallery-caption">Custom brackets fabricated for a shop project.</div>
+        </article>
 
-      <article class="gallery-item">
-        <img src="gallery4.jpg" alt="Bucket edge hardfacing" />
-        <p class="gallery-caption">Bucket repair and edge buildup for longer service life.</p>
-      </article>
-
-      <article class="gallery-item">
-        <img src="gallery5.jpg" alt="Pipe fence welding" />
-        <p class="gallery-caption">Pipe fence welding on ranch property outside Gatesville.</p>
-      </article>
-
-      <article class="gallery-item">
-        <img src="gallery6.jpg" alt="Custom rack build" />
-        <p class="gallery-caption">Custom rack fabrication for storage and hauling.</p>
-      </article>
+        <article class="gallery-item">
+          <img src="gallery4.jpg" alt="Bucket or blade repair">
+          <div class="gallery-caption">Bucket edge hard-facing and crack repair.</div>
+        </article>
+      </div>
     </section>
   </main>
 
