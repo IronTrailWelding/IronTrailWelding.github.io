@@ -76,7 +76,6 @@
       border-color: #ffb400;
     }
 
-    /* Layout */
     main {
       flex: 1;
     }
@@ -336,10 +335,12 @@
 
       <nav>
         <ul>
-          <li><a href="index.html">Home</a></li>
+          <li><a href="index.html#top">Home</a></li>
+          <li><a href="index.html#services">Services</a></li>
           <li><a href="about.html">About</a></li>
           <li><a href="gallery.html">Gallery</a></li>
           <li><a href="reviews.html" class="active">Reviews</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
         </ul>
       </nav>
     </div>
@@ -392,10 +393,10 @@
       </div>
     </div>
 
-    <!-- Admin controls (password-based) -->
+    <!-- Admin controls (password-based, text generic) -->
     <div class="admin-controls">
       <div class="admin-controls-inner">
-        <label for="admin-password">Admin password (for deleting reviews):</label>
+        <label for="admin-password">Admin password:</label>
         <input type="password" id="admin-password" placeholder="••••••••">
         <button type="button" class="btn btn-secondary" id="admin-login-btn">Enter admin mode</button>
         <span class="admin-status-text" id="admin-status-text">Admin mode: off</span>
@@ -560,7 +561,7 @@
       if (val === ADMIN_PASSWORD) {
         adminActive = true;
         document.body.classList.add("admin-active");
-        adminStatusText.textContent = "Admin mode: ON (delete buttons visible)";
+        adminStatusText.textContent = "Admin mode: ON";
         adminStatusText.style.color = "#6edc7b";
         adminPasswordInput.value = "";
       } else {
