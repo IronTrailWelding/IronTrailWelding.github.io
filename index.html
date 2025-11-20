@@ -19,10 +19,6 @@
       padding: 0;
     }
 
-    html {
-      scroll-behavior: smooth;
-    }
-
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 
@@ -517,8 +513,8 @@
 
         <div class="hero-actions">
           <a class="btn" href="tel:12549970146">Call or Text</a>
-          <!-- Scrolls to quote form at the bottom -->
-          <a class="btn btn-outline" href="#quote-form">
+          <!-- scrolls to quote form at bottom -->
+          <a class="btn btn-outline" href="#quote">
             Request a Quote
           </a>
         </div>
@@ -581,58 +577,7 @@
       </div>
     </section>
 
-    <!-- CONTACT -->
-    <section id="contact">
-      <h2>Contact</h2>
-      <p class="section-subtitle">
-        Tell us what you’re working on and we’ll let you know how we can help.
-      </p>
-
-      <div class="contact-section">
-        <div class="contact-box">
-          <div class="contact-label">Call or Text</div>
-          <p><strong>Dylan Buete:</strong> <a href="tel:12549970146">(254) 997-0146</a></p>
-          <p><strong>Rondell Vinson:</strong> <a href="tel:12549970147">(254) 997-0147</a></p>
-
-          <div class="contact-label">Email</div>
-          <p>
-            <a href="mailto:contact@irontrailwelding.com?subject=Iron Trail Welding Inquiry">
-              contact@irontrailwelding.com
-            </a>
-          </p>
-
-          <div class="contact-label">Service Area</div>
-          <p>Gatesville, TX and surrounding communities.</p>
-
-          <div class="contact-label">Typical Hours</div>
-          <ul class="hours-list">
-            <li><span>Mon – Fri</span><span>7:30am – 6:00pm</span></li>
-            <li><span>Sat</span><span>By appointment</span></li>
-            <li><span>Sun</span><span>Emergency calls only</span></li>
-          </ul>
-
-          <p class="muted" style="margin-top: 0.8rem;">
-            After-hours or emergency work may be available — text or call and we’ll respond ASAP.
-          </p>
-        </div>
-
-        <div class="contact-box">
-          <div class="contact-label">Quick Quote Info</div>
-          <p>When you reach out, it helps if you can share:</p>
-          <ul>
-            <li>A short description of what needs welded or built</li>
-            <li>Photos of damage or project area</li>
-            <li>Your location (or nearest town)</li>
-            <li>Any deadline or timeframe</li>
-          </ul>
-          <p class="muted" style="margin-top: 0.6rem;">
-            Send photos by text or email and we can often give a rough estimate before rolling the rig out.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- REQUEST A QUOTE (Zapier Webhook) – BOTTOM OF PAGE -->
+    <!-- REQUEST A QUOTE (Zapier webhook) -->
     <section id="quote">
       <h2>Request a Quote</h2>
       <p class="section-subtitle">
@@ -683,7 +628,7 @@
           </form>
         </div>
 
-        <!-- Quick guidance box -->
+        <!-- Quick guidance -->
         <div class="contact-box">
           <div class="contact-label">What Helps Us Quote Faster</div>
           <p>
@@ -698,7 +643,58 @@
           </ul>
           <p class="muted" style="margin-top:0.7rem;">
             You can also text photos directly to
-            <strong> (254) 997-0146</strong> or <strong>(254) 997-0147</strong>.
+            <strong>(254) 997-0146</strong> or <strong>(254) 997-0147</strong>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <h2>Contact</h2>
+      <p class="section-subtitle">
+        Tell us what you’re working on and we’ll let you know how we can help.
+      </p>
+
+      <div class="contact-section">
+        <div class="contact-box">
+          <div class="contact-label">Call or Text</div>
+          <p><strong>Dylan Buete:</strong> <a href="tel:12549970146">(254) 997-0146</a></p>
+          <p><strong>Rondell Vinson:</strong> <a href="tel:12549970147">(254) 997-0147</a></p>
+
+          <div class="contact-label">Email</div>
+          <p>
+            <a href="mailto:contact@irontrailwelding.com?subject=Iron Trail Welding Inquiry">
+              contact@irontrailwelding.com
+            </a>
+          </p>
+
+          <div class="contact-label">Service Area</div>
+          <p>Gatesville, TX and surrounding communities.</p>
+
+          <div class="contact-label">Typical Hours</div>
+          <ul class="hours-list">
+            <li><span>Mon – Fri</span><span>7:30am – 6:00pm</span></li>
+            <li><span>Sat</span><span>By appointment</span></li>
+            <li><span>Sun</span><span>Emergency calls only</span></li>
+          </ul>
+
+          <p class="muted" style="margin-top: 0.8rem;">
+            After-hours or emergency work may be available — text or call and we’ll respond ASAP.
+          </p>
+        </div>
+
+        <div class="contact-box">
+          <div class="contact-label">Quick Quote Info</div>
+          <p>When you reach out, it helps if you can share:</p>
+          <ul>
+            <li>A short description of what needs welded or built</li>
+            <li>Photos of damage or project area</li>
+            <li>Your location (or nearest town)</li>
+            <li>Any deadline or timeframe</li>
+          </ul>
+          <p class="muted" style="margin-top: 0.6rem;">
+            Send photos by text or email and we can often give a rough estimate before rolling the rig out.
           </p>
         </div>
       </div>
@@ -710,9 +706,8 @@
     <span>Mobile Welding &amp; Fabrication • Gatesville, Texas</span>
   </footer>
 
-  <!-- JS: year, mobile menu, Zapier submit -->
   <script>
-    // Set footer year
+    // Set year
     document.getElementById("year").textContent = new Date().getFullYear();
 
     // Mobile menu toggle
@@ -725,50 +720,58 @@
       });
     }
 
-    // ⭐⭐ ZAPIER WEBHOOK QUOTE FORM ⭐⭐
-    const ZAPIER_URL = "https://hooks.zapier.com/hooks/catch/25443767/uz5j7pi/";
-
+    // Quote form -> Zapier webhook using URL-encoded body (no custom headers)
     const quoteForm = document.getElementById("quote-form");
     const quoteStatus = document.getElementById("quote-status");
 
-    if (quoteForm) {
+    if (quoteForm && quoteStatus) {
       quoteForm.addEventListener("submit", async (e) => {
         e.preventDefault();
-        quoteStatus.textContent = "Sending quote request...";
+        quoteStatus.textContent = "";
         quoteStatus.className = "quote-small-note";
 
-        const data = {
-          name: document.getElementById("q-name").value.trim(),
-          phone: document.getElementById("q-phone").value.trim(),
-          email: document.getElementById("q-email").value.trim(),
-          location: document.getElementById("q-location").value.trim(),
-          type: document.getElementById("q-type").value,
-          details: document.getElementById("q-details").value.trim()
-        };
+        const name = document.getElementById("q-name").value.trim() || "Anonymous";
+        const phone = document.getElementById("q-phone").value.trim();
+        const email = document.getElementById("q-email").value.trim();
+        const location = document.getElementById("q-location").value.trim();
+        const type = document.getElementById("q-type").value;
+        const details = document.getElementById("q-details").value.trim();
 
-        if (data.details.length < 3) {
-          quoteStatus.textContent = "Please provide more project details.";
+        if (details.length < 5) {
+          quoteStatus.textContent = "Please add a little more detail so we know what you need.";
           quoteStatus.classList.add("status-error");
           return;
         }
 
+        quoteStatus.textContent = "Sending quote request...";
+
+        // Build URL-encoded body so browser doesn't need a custom Content-Type header
+        const body = new URLSearchParams();
+        body.append("name", name);
+        body.append("phone", phone);
+        body.append("email", email);
+        body.append("location", location);
+        body.append("type", type);
+        body.append("details", details);
+
         try {
-          const response = await fetch(ZAPIER_URL, {
+          const response = await fetch("https://hooks.zapier.com/hooks/catch/25443767/uz5j7pi/", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(data)
+            body: body
           });
 
-          if (!response.ok) throw new Error("Network issue");
-
-          quoteForm.reset();
-          quoteStatus.textContent = "Quote request sent! We'll contact you shortly.";
-          quoteStatus.classList.add("status-ok");
-
+          if (response.ok) {
+            quoteForm.reset();
+            document.getElementById("q-type").value = "Repair welding";
+            quoteStatus.textContent = "Quote request sent! We’ll get back to you as soon as we can.";
+            quoteStatus.classList.add("status-ok");
+          } else {
+            quoteStatus.textContent = "Error sending quote request. Please text or call if this continues.";
+            quoteStatus.classList.add("status-error");
+          }
         } catch (err) {
           console.error(err);
-          quoteStatus.textContent =
-            "Error sending quote request. Please text or call if this continues.";
+          quoteStatus.textContent = "Error sending quote request. Please text or call if this continues.";
           quoteStatus.classList.add("status-error");
         }
       });
