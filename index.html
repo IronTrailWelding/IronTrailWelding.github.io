@@ -485,6 +485,7 @@
           <li><a href="pricing.html">Pricing</a></li>
           <li><a href="reviews.html">Reviews</a></li>
           <li><a href="#contact">Contact</a></li>
+          <li><a href="#quote">Quote</a></li>
         </ul>
       </nav>
     </div>
@@ -628,7 +629,7 @@
       </div>
     </section>
 
-    <!-- REQUEST A QUOTE (moved to bottom, uses Zapier webhook + Firestore) -->
+    <!-- REQUEST A QUOTE – now at the bottom -->
     <section id="quote">
       <h2>Request a Quote</h2>
       <p class="section-subtitle">
@@ -724,8 +725,9 @@
   <script src="https://www.gstatic.com/firebasejs/12.6.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore-compat.js"></script>
 
+  <!-- Quote form handler: Firestore + Zapier webhook -->
   <script>
-    // Firebase config
+    // Firebase config (same as reviews)
     const firebaseConfig = {
       apiKey: "AIzaSyC9ravNjrF4NlCyr1WY4bxMGP4RZd0",
       authDomain: "irontrailwelding.firebaseapp.com",
@@ -736,7 +738,7 @@
       measurementId: "G-4X8B6YB047"
     };
 
-    // Init Firebase + Firestore
+    // Initialize Firebase app once
     if (!firebase.apps.length) {
       firebase.initializeApp(firebaseConfig);
     }
@@ -746,9 +748,7 @@
     const quoteForm = document.getElementById("quote-form");
     const quoteStatus = document.getElementById("quote-status");
 
-    const ZAPIER_WEBHOOK_URL = "https://hooks.zapier.com/hooks/catch/25443767/uz5j7pi/";
-
-    if (quoteForm && quoteStatus && quotesRef) {
+    if (quoteForm && quoteStatus) {
       quoteForm.addEventListener("submit", async (e) => {
         e.preventDefault();
         quoteStatus.textContent = "";
@@ -769,9 +769,9 @@
 
         quoteStatus.textContent = "Sending quote request...";
 
+        // Save to Firestore (for your records)
         try {
-          // 1) Save to Firestore
-          const docRef = await quotesRef.add({
+          await quotesRef.add({
             name,
             phone,
             email,
@@ -780,40 +780,33 @@
             details,
             createdAt: firebase.firestore.FieldValue.serverTimestamp()
           });
-
-          // 2) Fire Zapier webhook (no need to await)
-          try {
-            fetch(ZAPIER_WEBHOOK_URL, {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                name,
-                phone,
-                email,
-                location,
-                type,
-                details,
-                firestoreId: docRef.id,
-                createdAt: new Date().toISOString()
-              })
-            }).catch((err) => {
-              console.error("Zapier webhook error (non-fatal):", err);
-            });
-          } catch (err) {
-            console.error("Zapier webhook error (outer):", err);
-          }
-
-          // Reset form + UI
-          quoteForm.reset();
-          document.getElementById("q-type").value = "Repair welding";
-
-          quoteStatus.textContent = "Quote request sent! We’ll get back to you as soon as we can.";
-          quoteStatus.classList.add("status-ok");
         } catch (err) {
-          console.error(err);
-          quoteStatus.textContent = "Error sending quote request. Please text or call if this continues.";
-          quoteStatus.classList.add("status-error");
+          console.error("Firebase error:", err);
         }
+
+        // Send to Zapier webhook (for Outlook email)
+        try {
+          await fetch("https://hooks.zapier.com/hooks/catch/25443767/uz5j7pi/", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              name,
+              phone,
+              email,
+              location,
+              type,
+              details
+            })
+          });
+        } catch (err) {
+          console.error("Zapier webhook error:", err);
+        }
+
+        quoteForm.reset();
+        document.getElementById("q-type").value = "Repair welding";
+
+        quoteStatus.textContent = "Quote request sent! We’ll get back to you as soon as we can.";
+        quoteStatus.classList.add("status-ok");
       });
     }
   </script>
