@@ -137,7 +137,7 @@
       margin-top: 1rem;
     }
 
-    /* ABOUT CARDS – weld bead border to match index */
+    /* ABOUT CARDS – weld bead border */
     .card {
       background: rgba(17, 17, 17, 0.95);
       border-radius: 1rem;
@@ -231,7 +231,7 @@
   </style>
 </head>
 <body>
-  <!-- NAVBAR (sticky, dark) -->
+  <!-- NAVBAR -->
   <header class="site-header">
     <div class="nav-inner">
       <a class="nav-logo" href="index.html">IRON TRAIL WELDING</a>
@@ -244,6 +244,10 @@
           <li><a href="index.html#services">Services</a></li>
           <li><a href="about.html">About</a></li>
           <li><a href="gallery.html">Gallery</a></li>
+
+          <!-- ✅ ADDED PRICING LINK -->
+          <li><a href="pricing.html">Pricing</a></li>
+
           <li><a href="reviews.html">Reviews</a></li>
           <li><a href="index.html#contact">Contact</a></li>
         </ul>
@@ -294,9 +298,7 @@
             involved fabrication, he focuses on practical solutions that fit how
             you actually use your equipment.
           </p>
-          <p class="muted">
-            Call or text: (254) 997-0146
-          </p>
+          <p class="muted">Call or text: (254) 997-0146</p>
         </article>
 
         <article class="card">
@@ -307,9 +309,7 @@
             work, field repairs, or custom projects. The goal is always the same:
             clean welds, tight fit-up, and work that holds up to everyday abuse.
           </p>
-          <p class="muted">
-            Call or text: (254) 997-0147
-          </p>
+          <p class="muted">Call or text: (254) 997-0147</p>
         </article>
       </div>
     </section>
@@ -337,10 +337,8 @@
   </footer>
 
   <script>
-    // Set year
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    // Mobile menu toggle – targets the .site-header nav
     const menuToggle = document.querySelector('.menu-toggle');
     const nav = document.querySelector('.site-header nav');
 
