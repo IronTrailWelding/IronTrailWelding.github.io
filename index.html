@@ -513,7 +513,7 @@
 
         <div class="hero-actions">
           <a class="btn" href="tel:12549970146">Call or Text</a>
-          <!-- scrolls to quote form at bottom -->
+          <!-- scrolls to quote section -->
           <a class="btn btn-outline" href="#quote">
             Request a Quote
           </a>
@@ -577,7 +577,7 @@
       </div>
     </section>
 
-    <!-- REQUEST A QUOTE (Zapier webhook) -->
+    <!-- REQUEST A QUOTE (Zapier + Firestore backup) -->
     <section id="quote">
       <h2>Request a Quote</h2>
       <p class="section-subtitle">
@@ -706,6 +706,10 @@
     <span>Mobile Welding &amp; Fabrication • Gatesville, Texas</span>
   </footer>
 
+  <!-- Firebase SDK for BACKUP ONLY (quotes_backup) -->
+  <script src="https://www.gstatic.com/firebasejs/12.6.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore-compat.js"></script>
+
   <script>
     // Set year
     document.getElementById("year").textContent = new Date().getFullYear();
@@ -720,7 +724,31 @@
       });
     }
 
-    // Quote form -> Zapier webhook using URL-encoded body (no custom headers)
+    // ---------- FIREBASE BACKUP INIT (OPTION 2) ----------
+    let backupDb = null;
+    try {
+      const firebaseConfig = {
+        apiKey: "AIzaSyC9ravNjrF4NlCyr1WY4bxMGP4RZd0",
+        authDomain: "irontrailwelding.firebaseapp.com",
+        projectId: "irontrailwelding",
+        storageBucket: "irontrailwelding.firebasestorage.app",
+        messagingSenderId: "815483050252",
+        appId: "1:815483050252:web:7d92d2159f3101b0d7cf6a",
+        measurementId: "G-4X8B6YB047"
+      };
+
+      if (window.firebase) {
+        if (!firebase.apps.length) {
+          firebase.initializeApp(firebaseConfig);
+        }
+        backupDb = firebase.firestore();
+      }
+    } catch (err) {
+      console.error("Firebase backup init failed (quotes_backup will be skipped):", err);
+      backupDb = null;
+    }
+
+    // ---------- QUOTE FORM: ZAPIER + FIRESTORE BACKUP ----------
     const quoteForm = document.getElementById("quote-form");
     const quoteStatus = document.getElementById("quote-status");
 
@@ -745,7 +773,7 @@
 
         quoteStatus.textContent = "Sending quote request...";
 
-        // Build URL-encoded body so browser doesn't need a custom Content-Type header
+        // Build URL-encoded body for Zapier
         const body = new URLSearchParams();
         body.append("name", name);
         body.append("phone", phone);
@@ -754,6 +782,8 @@
         body.append("type", type);
         body.append("details", details);
 
+        // 1) PRIMARY: send to Zapier (Outlook email)
+        let zapSuccess = false;
         try {
           const response = await fetch("https://hooks.zapier.com/hooks/catch/25443767/uz5j7pi/", {
             method: "POST",
@@ -761,6 +791,7 @@
           });
 
           if (response.ok) {
+            zapSuccess = true;
             quoteForm.reset();
             document.getElementById("q-type").value = "Repair welding";
             quoteStatus.textContent = "Quote request sent! We’ll get back to you as soon as we can.";
@@ -770,9 +801,25 @@
             quoteStatus.classList.add("status-error");
           }
         } catch (err) {
-          console.error(err);
+          console.error("Zapier send error:", err);
           quoteStatus.textContent = "Error sending quote request. Please text or call if this continues.";
           quoteStatus.classList.add("status-error");
+        }
+
+        // 2) BACKUP: save to Firestore (quotes_backup) – does NOT affect user if it fails
+        if (backupDb) {
+          backupDb.collection("quotes_backup").add({
+            name,
+            phone,
+            email,
+            location,
+            type,
+            details,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+            zapierSuccess: zapSuccess
+          }).catch(err => {
+            console.error("Backup to Firestore failed (quotes_backup):", err);
+          });
         }
       });
     }
