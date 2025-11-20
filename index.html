@@ -577,7 +577,58 @@
       </div>
     </section>
 
-    <!-- REQUEST A QUOTE (Firebase) -->
+    <!-- CONTACT -->
+    <section id="contact">
+      <h2>Contact</h2>
+      <p class="section-subtitle">
+        Tell us what you’re working on and we’ll let you know how we can help.
+      </p>
+
+      <div class="contact-section">
+        <div class="contact-box">
+          <div class="contact-label">Call or Text</div>
+          <p><strong>Dylan Buete:</strong> <a href="tel:12549970146">(254) 997-0146</a></p>
+          <p><strong>Rondell Vinson:</strong> <a href="tel:12549970147">(254) 997-0147</a></p>
+
+          <div class="contact-label">Email</div>
+          <p>
+            <a href="mailto:contact@irontrailwelding.com?subject=Iron Trail Welding Inquiry">
+              contact@irontrailwelding.com
+            </a>
+          </p>
+
+          <div class="contact-label">Service Area</div>
+          <p>Gatesville, TX and surrounding communities.</p>
+
+          <div class="contact-label">Typical Hours</div>
+          <ul class="hours-list">
+            <li><span>Mon – Fri</span><span>7:30am – 6:00pm</span></li>
+            <li><span>Sat</span><span>By appointment</span></li>
+            <li><span>Sun</span><span>Emergency calls only</span></li>
+          </ul>
+
+          <p class="muted" style="margin-top: 0.8rem;">
+            After-hours or emergency work may be available — text or call and we’ll respond ASAP.
+          </p>
+        </div>
+
+        <div class="contact-box">
+          <div class="contact-label">Quick Quote Info</div>
+          <p>When you reach out, it helps if you can share:</p>
+          <ul>
+            <li>A short description of what needs welded or built</li>
+            <li>Photos of damage or project area</li>
+            <li>Your location (or nearest town)</li>
+            <li>Any deadline or timeframe</li>
+          </ul>
+          <p class="muted" style="margin-top: 0.6rem;">
+            Send photos by text or email and we can often give a rough estimate before rolling the rig out.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- REQUEST A QUOTE (moved to bottom, uses Zapier webhook + Firestore) -->
     <section id="quote">
       <h2>Request a Quote</h2>
       <p class="section-subtitle">
@@ -648,57 +699,6 @@
         </div>
       </div>
     </section>
-
-    <!-- CONTACT -->
-    <section id="contact">
-      <h2>Contact</h2>
-      <p class="section-subtitle">
-        Tell us what you’re working on and we’ll let you know how we can help.
-      </p>
-
-      <div class="contact-section">
-        <div class="contact-box">
-          <div class="contact-label">Call or Text</div>
-          <p><strong>Dylan Buete:</strong> <a href="tel:12549970146">(254) 997-0146</a></p>
-          <p><strong>Rondell Vinson:</strong> <a href="tel:12549970147">(254) 997-0147</a></p>
-
-          <div class="contact-label">Email</div>
-          <p>
-            <a href="mailto:contact@irontrailwelding.com?subject=Iron Trail Welding Inquiry">
-              contact@irontrailwelding.com
-            </a>
-          </p>
-
-          <div class="contact-label">Service Area</div>
-          <p>Gatesville, TX and surrounding communities.</p>
-
-          <div class="contact-label">Typical Hours</div>
-          <ul class="hours-list">
-            <li><span>Mon – Fri</span><span>7:30am – 6:00pm</span></li>
-            <li><span>Sat</span><span>By appointment</span></li>
-            <li><span>Sun</span><span>Emergency calls only</span></li>
-          </ul>
-
-          <p class="muted" style="margin-top: 0.8rem;">
-            After-hours or emergency work may be available — text or call and we’ll respond ASAP.
-          </p>
-        </div>
-
-        <div class="contact-box">
-          <div class="contact-label">Quick Quote Info</div>
-          <p>When you reach out, it helps if you can share:</p>
-          <ul>
-            <li>A short description of what needs welded or built</li>
-            <li>Photos of damage or project area</li>
-            <li>Your location (or nearest town)</li>
-            <li>Any deadline or timeframe</li>
-          </ul>
-          <p class="muted" style="margin-top: 0.6rem;">
-            Send photos by text or email and we can often give a rough estimate before rolling the rig out.
-          </p>
-        </div>
-      </div>
-    </section>
   </main>
 
   <footer>
@@ -725,7 +725,7 @@
   <script src="https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore-compat.js"></script>
 
   <script>
-    // Same config as reviews page
+    // Firebase config
     const firebaseConfig = {
       apiKey: "AIzaSyC9ravNjrF4NlCyr1WY4bxMGP4RZd0",
       authDomain: "irontrailwelding.firebaseapp.com",
@@ -741,10 +741,12 @@
       firebase.initializeApp(firebaseConfig);
     }
     const db = firebase.firestore();
-    const quotesRef = db.collection("quotes"); // new collection
+    const quotesRef = db.collection("quotes");
 
     const quoteForm = document.getElementById("quote-form");
     const quoteStatus = document.getElementById("quote-status");
+
+    const ZAPIER_WEBHOOK_URL = "https://hooks.zapier.com/hooks/catch/25443767/uz5j7pi/";
 
     if (quoteForm && quoteStatus && quotesRef) {
       quoteForm.addEventListener("submit", async (e) => {
@@ -766,8 +768,10 @@
         }
 
         quoteStatus.textContent = "Sending quote request...";
+
         try {
-          await quotesRef.add({
+          // 1) Save to Firestore
+          const docRef = await quotesRef.add({
             name,
             phone,
             email,
@@ -777,6 +781,29 @@
             createdAt: firebase.firestore.FieldValue.serverTimestamp()
           });
 
+          // 2) Fire Zapier webhook (no need to await)
+          try {
+            fetch(ZAPIER_WEBHOOK_URL, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                name,
+                phone,
+                email,
+                location,
+                type,
+                details,
+                firestoreId: docRef.id,
+                createdAt: new Date().toISOString()
+              })
+            }).catch((err) => {
+              console.error("Zapier webhook error (non-fatal):", err);
+            });
+          } catch (err) {
+            console.error("Zapier webhook error (outer):", err);
+          }
+
+          // Reset form + UI
           quoteForm.reset();
           document.getElementById("q-type").value = "Repair welding";
 
@@ -792,4 +819,3 @@
   </script>
 </body>
 </html>
-
