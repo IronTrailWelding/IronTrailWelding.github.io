@@ -19,6 +19,10 @@
       padding: 0;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 
@@ -513,8 +517,8 @@
 
         <div class="hero-actions">
           <a class="btn" href="tel:12549970146">Call or Text</a>
-          <!-- changed to scroll to form at bottom -->
-          <a class="btn btn-outline" href="#quote">
+          <!-- Scrolls to quote form at the bottom -->
+          <a class="btn btn-outline" href="#quote-form">
             Request a Quote
           </a>
         </div>
@@ -628,11 +632,11 @@
       </div>
     </section>
 
-    <!-- REQUEST A QUOTE (ZAPIER WEBHOOK) – AT BOTTOM -->
+    <!-- REQUEST A QUOTE (Zapier Webhook) – BOTTOM OF PAGE -->
     <section id="quote">
       <h2>Request a Quote</h2>
       <p class="section-subtitle">
-        Send a few details and we’ll follow up with pricing and timing. Photos by text or email help a lot.
+        Fill this out and we’ll contact you with a quote or follow-up questions.
       </p>
 
       <div class="contact-section">
@@ -679,7 +683,7 @@
           </form>
         </div>
 
-        <!-- Quick guidance -->
+        <!-- Quick guidance box -->
         <div class="contact-box">
           <div class="contact-label">What Helps Us Quote Faster</div>
           <p>
@@ -706,9 +710,9 @@
     <span>Mobile Welding &amp; Fabrication • Gatesville, Texas</span>
   </footer>
 
-  <!-- Year + mobile menu + Zapier webhook submit -->
+  <!-- JS: year, mobile menu, Zapier submit -->
   <script>
-    // Set year
+    // Set footer year
     document.getElementById("year").textContent = new Date().getFullYear();
 
     // Mobile menu toggle
@@ -721,17 +725,19 @@
       });
     }
 
-    // ---------- QUOTE FORM → ZAPIER WEBHOOK ----------
+    // ⭐⭐ ZAPIER WEBHOOK QUOTE FORM ⭐⭐
+    const ZAPIER_URL = "https://hooks.zapier.com/hooks/catch/25443767/uz5j7pi/";
+
     const quoteForm = document.getElementById("quote-form");
     const quoteStatus = document.getElementById("quote-status");
 
-    if (quoteForm && quoteStatus) {
+    if (quoteForm) {
       quoteForm.addEventListener("submit", async (e) => {
         e.preventDefault();
-        quoteStatus.textContent = "";
+        quoteStatus.textContent = "Sending quote request...";
         quoteStatus.className = "quote-small-note";
 
-        const payload = {
+        const data = {
           name: document.getElementById("q-name").value.trim(),
           phone: document.getElementById("q-phone").value.trim(),
           email: document.getElementById("q-email").value.trim(),
@@ -740,34 +746,29 @@
           details: document.getElementById("q-details").value.trim()
         };
 
-        if (!payload.details || payload.details.length < 5) {
-          quoteStatus.textContent = "Please add a little more detail so we know what you need.";
+        if (data.details.length < 3) {
+          quoteStatus.textContent = "Please provide more project details.";
           quoteStatus.classList.add("status-error");
           return;
         }
 
-        quoteStatus.textContent = "Sending quote request...";
-
         try {
-          const res = await fetch("https://hooks.zapier.com/hooks/catch/25443767/uz5j7pi/", {
+          const response = await fetch(ZAPIER_URL, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload)
+            body: JSON.stringify(data)
           });
 
-          if (!res.ok) {
-            throw new Error("Zapier returned " + res.status);
-          }
+          if (!response.ok) throw new Error("Network issue");
 
-          // Clear form
           quoteForm.reset();
-          document.getElementById("q-type").value = "Repair welding";
-
-          quoteStatus.textContent = "Quote request sent! We’ll get back to you as soon as we can.";
+          quoteStatus.textContent = "Quote request sent! We'll contact you shortly.";
           quoteStatus.classList.add("status-ok");
+
         } catch (err) {
           console.error(err);
-          quoteStatus.textContent = "Error sending quote request. Please text or call if this continues.";
+          quoteStatus.textContent =
+            "Error sending quote request. Please text or call if this continues.";
           quoteStatus.classList.add("status-error");
         }
       });
