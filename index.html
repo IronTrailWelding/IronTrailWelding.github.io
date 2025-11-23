@@ -406,6 +406,32 @@
       flex-wrap: wrap;
       justify-content: space-between;
       gap: 0.6rem;
+      align-items: center;
+    }
+
+    /* Social links in footer */
+    .social-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-right: auto;
+    }
+
+    .social-links a {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.3rem 0.8rem;
+      border-radius: 999px;
+      border: 1px solid #444;
+      background: rgba(0, 0, 0, 0.6);
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    .social-links a span {
+      font-weight: 600;
     }
 
     /* MOBILE – HYBRID BACKGROUND BEHAVIOR */
@@ -464,6 +490,15 @@
 
       main {
         padding-top: 1.25rem;
+      }
+
+      footer {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .social-links {
+        margin-right: 0;
       }
     }
   </style>
@@ -577,7 +612,74 @@
       </div>
     </section>
 
-    <!-- REQUEST A QUOTE (Zapier + Firestore backup) -->
+    <!-- CONTACT -->
+    <section id="contact">
+      <h2>Contact</h2>
+      <p class="section-subtitle">
+        Tell us what you’re working on and we’ll let you know how we can help.
+      </p>
+
+      <div class="contact-section">
+        <div class="contact-box">
+          <div class="contact-label">Call or Text</div>
+          <p><strong>Dylan Buete:</strong> <a href="tel:12549970146">(254) 997-0146</a></p>
+          <p><strong>Rondell Vinson:</strong> <a href="tel:12549970147">(254) 997-0147</a></p>
+
+          <div class="contact-label">Email</div>
+          <p>
+            <a href="mailto:contact@irontrailwelding.com?subject=Iron Trail Welding Inquiry">
+              contact@irontrailwelding.com
+            </a>
+          </p>
+
+          <div class="contact-label">Service Area</div>
+          <p>Gatesville, TX and surrounding communities.</p>
+
+          <div class="contact-label">Typical Hours</div>
+          <ul class="hours-list">
+            <li><span>Mon – Fri</span><span>7:30am – 6:00pm</span></li>
+            <li><span>Sat</span><span>By appointment</span></li>
+            <li><span>Sun</span><span>Emergency calls only</span></li>
+          </ul>
+
+          <p class="muted" style="margin-top: 0.8rem;">
+            After-hours or emergency work may be available — text or call and we’ll respond ASAP.
+          </p>
+
+          <div class="contact-label">Follow Us Online</div>
+          <p class="muted">
+            Follow us on
+            <a href="https://www.instagram.com/iron_trail_welding?igsh=cG42OHQxNzh6bWNm&utm_source=qr" target="_blank" rel="noopener noreferrer">
+              Instagram
+            </a>
+            for recent builds, and find more on
+            <a href="https://www.facebook.com/share/1FngeK9mzH/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer">
+              Facebook
+            </a>
+            and
+            <a href="https://m.youtube.com/@irontrailwelding?fbclid=IwVERDUAOP_vtleHRuA2FlbQIxMABzcnRjBmFwcF9pZAo2NjI4NTY4Mzc5AAEe4xQHYkYsSL2Cn0KAsMq2xEKr7AOKEyO_AMX8yi3Ovi3_uZAdgGvwlgGJnxg_aem_1C3QzAfqvbWDNgnObYHxLw" target="_blank" rel="noopener noreferrer">
+              YouTube
+            </a>.
+          </p>
+        </div>
+
+        <div class="contact-box">
+          <div class="contact-label">Quick Quote Info</div>
+          <p>When you reach out, it helps if you can share:</p>
+          <ul>
+            <li>A short description of what needs welded or built</li>
+            <li>Photos of damage or project area</li>
+            <li>Your location (or nearest town)</li>
+            <li>Any deadline or timeframe</li>
+          </ul>
+          <p class="muted" style="margin-top: 0.6rem;">
+            Send photos by text or email and we can often give a rough estimate before rolling the rig out.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- REQUEST A QUOTE (moved to bottom) -->
     <section id="quote">
       <h2>Request a Quote</h2>
       <p class="section-subtitle">
@@ -648,60 +750,21 @@
         </div>
       </div>
     </section>
-
-    <!-- CONTACT -->
-    <section id="contact">
-      <h2>Contact</h2>
-      <p class="section-subtitle">
-        Tell us what you’re working on and we’ll let you know how we can help.
-      </p>
-
-      <div class="contact-section">
-        <div class="contact-box">
-          <div class="contact-label">Call or Text</div>
-          <p><strong>Dylan Buete:</strong> <a href="tel:12549970146">(254) 997-0146</a></p>
-          <p><strong>Rondell Vinson:</strong> <a href="tel:12549970147">(254) 997-0147</a></p>
-
-          <div class="contact-label">Email</div>
-          <p>
-            <a href="mailto:contact@irontrailwelding.com?subject=Iron Trail Welding Inquiry">
-              contact@irontrailwelding.com
-            </a>
-          </p>
-
-          <div class="contact-label">Service Area</div>
-          <p>Gatesville, TX and surrounding communities.</p>
-
-          <div class="contact-label">Typical Hours</div>
-          <ul class="hours-list">
-            <li><span>Mon – Fri</span><span>7:30am – 6:00pm</span></li>
-            <li><span>Sat</span><span>By appointment</span></li>
-            <li><span>Sun</span><span>Emergency calls only</span></li>
-          </ul>
-
-          <p class="muted" style="margin-top: 0.8rem;">
-            After-hours or emergency work may be available — text or call and we’ll respond ASAP.
-          </p>
-        </div>
-
-        <div class="contact-box">
-          <div class="contact-label">Quick Quote Info</div>
-          <p>When you reach out, it helps if you can share:</p>
-          <ul>
-            <li>A short description of what needs welded or built</li>
-            <li>Photos of damage or project area</li>
-            <li>Your location (or nearest town)</li>
-            <li>Any deadline or timeframe</li>
-          </ul>
-          <p class="muted" style="margin-top: 0.6rem;">
-            Send photos by text or email and we can often give a rough estimate before rolling the rig out.
-          </p>
-        </div>
-      </div>
-    </section>
   </main>
 
   <footer>
+    <div class="social-links">
+      <a href="https://www.facebook.com/share/1FngeK9mzH/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" aria-label="Iron Trail Welding on Facebook">
+        <span>Facebook</span>
+      </a>
+      <a href="https://www.instagram.com/iron_trail_welding?igsh=cG42OHQxNzh6bWNm&utm_source=qr" target="_blank" rel="noopener noreferrer" aria-label="Iron Trail Welding on Instagram">
+        <span>Instagram</span>
+      </a>
+      <a href="https://m.youtube.com/@irontrailwelding?fbclid=IwVERDUAOP_vtleHRuA2FlbQIxMABzcnRjBmFwcF9pZAo2NjI4NTY4Mzc5AAEe4xQHYkYsSL2Cn0KAsMq2xEKr7AOKEyO_AMX8yi3Ovi3_uZAdgGvwlgGJnxg_aem_1C3QzAfqvbWDNgnObYHxLw" target="_blank" rel="noopener noreferrer" aria-label="Iron Trail Welding on YouTube">
+        <span>YouTube</span>
+      </a>
+    </div>
+
     <span>© <span id="year"></span> Iron Trail Welding. All rights reserved.</span>
     <span>Mobile Welding &amp; Fabrication • Gatesville, Texas</span>
   </footer>
